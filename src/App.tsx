@@ -1,16 +1,19 @@
 import './App.css'
 
-function App() {
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Quote from './components/Quote'
 
+const queryClient = new QueryClient()
+
+
+function App() {
   return (
-    <>
-      <main className='w-screen h-screen grid place-items-center bg-[url(./assets/mainBackground.png)] bg-no-repeat bg-cover bg-bottom-right'>
-        <section className='flex flex-col items-end'>
-          <blockquote className='tracking-wider italic text-5xl text-sepia'>I shall expose and reopen all the wounds which have already healed.</blockquote>
-          <footer className='font-bonheur italic text-3xl text-stone-dark'>Seneca</footer>
-        </section>
+    <QueryClientProvider client={queryClient}>
+      <main
+        className='w-screen min-h-screen grid place-items-center bg-[url(./assets/mainBackground.png)] bg-no-repeat bg-cover bg-bottom-right'>
+        <Quote />
       </main>
-    </>
+    </QueryClientProvider>
   )
 }
 
