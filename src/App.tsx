@@ -3,6 +3,8 @@ import BrandMark from './components/BrandMark'
 import Quote from './components/Quote'
 import { textLinkClassName } from './styles'
 
+import { Analytics } from "@vercel/analytics/react"
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -33,6 +35,8 @@ function App() {
 
         <Quote />
       </main>
+
+      <Analytics />
     </QueryClientProvider>
   )
 }
