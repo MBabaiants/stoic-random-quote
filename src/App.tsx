@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BrandMark from './components/BrandMark'
 import Quote from './components/Quote'
+import { textLinkClassName } from './styles'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,11 +23,11 @@ function App() {
           </a>
           <div className="flex flex-wrap items-center justify-end gap-2 text-xs text-[#786c5c] max-[600px]:ml-auto max-[600px]:text-[11px]" role="group" aria-label="Creator and project links">
             <span>Created by</span>
-            <a className="text-[#69553b] underline decoration-[#69553b]/45 underline-offset-[3px] hover:text-[#382e25] hover:decoration-current focus-visible:outline-[3px] focus-visible:outline-[#8a6145] focus-visible:outline-offset-[5px]" href="https://linkedin.com/in/mikhail-babaiants-frontend-dev" target="_blank" rel="noreferrer">Mikhail Babaiants</a>
+            <a className={textLinkClassName} href="https://linkedin.com/in/mikhail-babaiants-frontend-dev" target="_blank" rel="noreferrer">Mikhail Babaiants</a>
             <span className="text-[#a18a68]" aria-hidden="true">×</span>
-            <a className="text-[#69553b] underline decoration-[#69553b]/45 underline-offset-[3px] hover:text-[#382e25] hover:decoration-current focus-visible:outline-[3px] focus-visible:outline-[#8a6145] focus-visible:outline-offset-[5px]" href="https://openai.com/codex/" target="_blank" rel="noreferrer">Codex</a>
+            <a className={textLinkClassName} href="https://openai.com/codex/" target="_blank" rel="noreferrer">Codex</a>
             <span className="px-1 text-[#a18a68]" aria-hidden="true">·</span>
-            <a className="text-[#69553b] underline decoration-[#69553b]/45 underline-offset-[3px] hover:text-[#382e25] hover:decoration-current focus-visible:outline-[3px] focus-visible:outline-[#8a6145] focus-visible:outline-offset-[5px]" href="https://github.com/MBabaiants/stoic-random-quote" target="_blank" rel="noreferrer">View source <svg className="ml-1 inline size-3 align-[-1px]" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
+            <a className={textLinkClassName} href="https://github.com/MBabaiants/stoic-random-quote" target="_blank" rel="noreferrer">View source <svg className="ml-1 inline size-3 align-[-1px]" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
           </div>
         </header>
 
