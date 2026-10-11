@@ -1,0 +1,49 @@
+name: Sync PR commits
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  update-description:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.issue.number;
+            const { data: pr } = await github.rest.pulls.get({
+              owner, repo, pull_number
+            });
+            const commits = await github.paginate(
+              github.rest.pulls.listCommits,
+              { owner, repo, pull_number, per_page: 100 }
+            );
+
+            const start = '<!-- AUTO-COMMITS:START -->';
+            const end = '<!-- AUTO-COMMITS:END -->';
+            const list = commits.map(({ sha, html_url, commit }) => {
+              const title = commit.message.split('\n')[0]
+                .replace(/[&<>]/g, char => ({
+                  '&': '&amp;', '<': '&lt;', '>': '&gt;'
+                })[char]);
+              return `- [${sha.slice(0, 7)}](${html_url}) ${title}`;
+            }).join('\n');
+
+            const section = `${start}\n${list || '_No commits yet._'}\n${end}`;
+            const currentBody = pr.body || '';
+            const markers = new RegExp(`${start}[\\s\\S]*?${end}`);
+
+            const body = markers.test(currentBody)
+              ? currentBody.replace(markers, section)
+              : `${currentBody.trimEnd()}\n\n${section}`;
+
+            if (body !== currentBody) {
+              await github.rest.pulls.update({
+                owner, repo, pull_number, body
+              });
+            }

@@ -3,3 +3,7 @@
 
 ## Changes
 <!-- Summarize the notable changes. -->
+
+## Commits
+<!-- AUTO-COMMITS:START -->
+<!-- AUTO-COMMITS:END -->
