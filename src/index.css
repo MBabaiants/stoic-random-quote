@@ -1,37 +1,44 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Bonheur Royale';
-  src: url('./assets/fonts/BonheurRoyale-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
-}
-
 @theme {
-  --font-bonheur: 'Bonheur Royale', Roboto, sans-serif;
-  --color-parchment: #f5f0e8;
-  --color-sepia: #2c1a0e;
-  --color-stone: #c8b89a;
-  --color-stone-dark: #7a6248;
-  --color-terracotta: #6b3f1f;
-}
+  --animate-quote-arrive: quote-arrive 1.6s cubic-bezier(.2,.7,.25,1) both;
+  --animate-brand-write: brand-write .95s cubic-bezier(.45,0,.25,1) both;
+  --animate-loader-write: loader-write 3.6s cubic-bezier(.45,0,.25,1) infinite;
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  @keyframes quote-arrive {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-} */
 
-body {
-  font-family: 'Garamond', sans-serif;
+  @keyframes brand-write {
+    0% { stroke-dashoffset: 180; opacity: 1; fill: transparent; }
+    88% { stroke-dashoffset: 0; opacity: 1; fill: transparent; }
+    100% { stroke-dashoffset: 0; opacity: 1; fill: #55432e; }
+  }
+
+  @keyframes loader-write {
+    0% { stroke-dashoffset: 180; opacity: .8; fill: transparent; }
+    42% { stroke-dashoffset: 0; opacity: 1; fill: transparent; }
+    52%, 75% { stroke-dashoffset: 0; opacity: 1; fill: #55432e; }
+    100% { stroke-dashoffset: -180; opacity: 0; fill: transparent; }
+  }
 }
+
+:root {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  color: #382e25;
+  background: #eee8dc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; min-height: 100%; background: #eee8dc; }
+body { min-width: 320px; min-height: 100vh; margin: 0; background: #eee8dc; }
+#root { min-height: 100vh; background: #eee8dc; }
+button, a { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 3px solid #8a6145; outline-offset: 5px; }
+::selection { color: #fffaf1; background: #755d46; }
