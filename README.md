@@ -1,77 +1,51 @@
-# React + TypeScript + Vite
+# Stoic Quote
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A quiet, single-page app for reading one Stoic quote at a time. It fetches a quote on arrival, gives the text a slow reveal, and lets visitors request another quote.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Responsive parchment-inspired design with a locally bundled background image.
+- Animated brand mark shared by the header and loading state.
+- Quote and author validation before display.
+- Loading, retry, and subsequent-request error states that preserve the current quote.
+- Keyboard focus styles, screen-reader status messages, and reduced-motion support.
+- Product-specific browser title, description, theme color, and favicon.
 
-## React Compiler
+## Requirements
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Node.js compatible with the installed Vite version.
+- npm.
 
-Note: This will impact Vite dev & build performances.
+## Run locally
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The Vite development server proxies `/api` requests to `https://stoic-quotes.com`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm run dev      # Start the local development server
+npm run build    # Type-check and create a production build in dist/
+npm run preview  # Preview the production build locally
+npm run lint     # Run ESLint
 ```
+
+## Quote service and deployment
+
+The app requests `/api/quote` and expects a JSON object with non-empty string fields named `text` and `author`. Invalid responses are treated as service errors.
+
+`vercel.json` forwards routes to `stoic-quotes.com` for deployment. The development proxy is configured separately in `vite.config.ts`. Build the app with `npm run build`; Vite writes the deployable static assets to `dist/`.
+
+## Project structure
+
+- `src/App.tsx` — page shell, brand header, creator links, and query provider.
+- `src/components/Quote/` — quote retrieval, loading/error states, and quote action.
+- `src/components/BrandMark.tsx` — reusable animated SVG brand mark.
+- `src/index.css` — Tailwind import, animation tokens, and global base styles.
+- `src/assets/` — background image and licensed decorative font asset.
+- `public/favicon.svg` — browser favicon.
+
