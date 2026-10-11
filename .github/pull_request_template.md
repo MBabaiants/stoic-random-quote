@@ -1,3 +1,5 @@
-**PR changes**
+## Summary
+<!-- Briefly describe the purpose of this pull request. -->
 
-%{all_commits}
+## Changes
+<!-- Summarize the notable changes. -->
